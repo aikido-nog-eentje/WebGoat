@@ -61,17 +61,17 @@
     <developer>
       <id>jwayman</id>
       <name>Jeff Wayman</name>
-      <email></email>
+      <email/>
     </developer>
     <developer>
       <id>dcowden</id>
       <name>Dave Cowden</name>
-      <email></email>
+      <email/>
     </developer>
     <developer>
       <id>lawson89</id>
       <name>Richard Lawson</name>
-      <email></email>
+      <email/>
     </developer>
     <developer>
       <id>dougmorato</id>
@@ -111,22 +111,22 @@
     <!-- Shared properties with plugins and version numbers across submodules-->
     <asciidoctorj.version>2.5.10</asciidoctorj.version>
     <!-- Upgrading needs UI work in WebWolf -->
-    <bootstrap.version>3.3.7</bootstrap.version>
+    <bootstrap.version>3.4.1</bootstrap.version>
     <cglib.version>3.3.0</cglib.version>
     <!-- do not update necessary for lesson -->
     <checkstyle.version>3.3.0</checkstyle.version>
     <commons-collections.version>3.2.1</commons-collections.version>
-    <commons-io.version>2.11.0</commons-io.version>
+    <commons-io.version>2.14.0</commons-io.version>
     <commons-lang3.version>3.12.0</commons-lang3.version>
     <commons-text.version>1.10.0</commons-text.version>
-    <guava.version>31.1-jre</guava.version>
+    <guava.version>32.0.0-android</guava.version>
     <jacoco.version>0.8.10</jacoco.version>
     <java.version>17</java.version>
     <jaxb.version>2.3.1</jaxb.version>
     <jjwt.version>0.9.1</jjwt.version>
-    <jose4j.version>0.9.3</jose4j.version>
+    <jose4j.version>0.9.6</jose4j.version>
     <jquery.version>3.5.1</jquery.version>
-    <jsoup.version>1.16.1</jsoup.version>
+    <jsoup.version>1.21.1</jsoup.version>
     <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
     <maven-failsafe-plugin.version>2.22.0</maven-failsafe-plugin.version>
     <maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>
@@ -145,9 +145,19 @@
     <webwolf.port>9090</webwolf.port>
     <wiremock.version>2.27.2</wiremock.version>
     <xml-resolver.version>1.2</xml-resolver.version>
-    <xstream.version>1.4.5</xstream.version>
+    <xstream.version>1.4.21</xstream.version>
     <!-- do not update necessary for lesson -->
     <zxcvbn.version>1.7.0</zxcvbn.version>
+    <org-springframework-security.spring-security-test.version>6.2.0</org-springframework-security.spring-security-test.version>
+    <org-springframework-boot.spring-boot-starter-security.version>3.2.0</org-springframework-boot.spring-boot-starter-security.version>
+    <org-springframework-boot.spring-boot-starter-undertow.version>3.5.10</org-springframework-boot.spring-boot-starter-undertow.version>
+    <org-springframework-boot.spring-boot-starter-test.version>3.4.10</org-springframework-boot.spring-boot-starter-test.version>
+    <org-springframework-boot.spring-boot-starter-web.version>3.4.10</org-springframework-boot.spring-boot-starter-web.version>
+    <org-springframework-boot.spring-boot-starter-validation.version>3.5.10</org-springframework-boot.spring-boot-starter-validation.version>
+    <org-springframework-boot.spring-boot-properties-migrator.version>3.3.11</org-springframework-boot.spring-boot-properties-migrator.version>
+    <org-apache-commons.commons-lang3.version>3.18.0</org-apache-commons.commons-lang3.version>
+    <org-springframework-boot.spring-boot-starter-actuator.version>3.1.6</org-springframework-boot.spring-boot-starter-actuator.version>
+    <org-yaml.snakeyaml.version>2.0</org-yaml.snakeyaml.version>
   </properties>
 
   <dependencyManagement>
@@ -248,7 +258,57 @@
       <dependency>
         <groupId>org.jruby</groupId>
         <artifactId>jruby</artifactId>
-        <version>9.4.2.0</version>
+        <version>9.4.12.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-test</artifactId>
+        <version>${org-springframework-security.spring-security-test.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+        <version>${org-springframework-boot.spring-boot-starter-security.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-undertow</artifactId>
+        <version>${org-springframework-boot.spring-boot-starter-undertow.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <version>${org-springframework-boot.spring-boot-starter-test.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+        <version>${org-springframework-boot.spring-boot-starter-web.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-validation</artifactId>
+        <version>${org-springframework-boot.spring-boot-starter-validation.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-properties-migrator</artifactId>
+        <version>${org-springframework-boot.spring-boot-properties-migrator.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${org-apache-commons.commons-lang3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+        <version>${org-springframework-boot.spring-boot-starter-actuator.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>${org-yaml.snakeyaml.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -539,8 +599,8 @@
               <includes>
                 <include>.gitignore</include>
               </includes>
-              <trimTrailingWhitespace></trimTrailingWhitespace>
-              <endWithNewline></endWithNewline>
+              <trimTrailingWhitespace/>
+              <endWithNewline/>
               <indent>
                 <tabs>true</tabs>
                 <spacesPerTab>4</spacesPerTab>
@@ -551,7 +611,7 @@
             <includes>
               <include>**/*.md</include>
             </includes>
-            <flexmark></flexmark>
+            <flexmark/>
           </markdown>
           <java>
             <includes>
@@ -559,7 +619,7 @@
               <include>src/test/java/**/*.java</include>
               <include>src/it/java/**/*.java</include>
             </includes>
-            <removeUnusedImports></removeUnusedImports>
+            <removeUnusedImports/>
             <googleJavaFormat>
               <style>GOOGLE</style>
               <reflowLongStrings>true</reflowLongStrings>
