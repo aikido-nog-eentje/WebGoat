@@ -88,6 +88,12 @@ public class ProfileUploadRetrieval extends AssignmentEndpoint {
     }
     try {
       var id = request.getParameter("id");
+      // Security validation: Check for path traversal attack patterns
+      // Reject requests containing "../" (Unix) or "..\" (Windows) sequences
+      // These patterns could allow attackers to access files outside the intended directory
+      if (id != null && (id.contains("../") || id.contains("..\\"))) {
+          throw new IllegalArgumentException("Invalid file path");
+      }
       var catPicture =
           new File(catPicturesDirectory, (id == null ? RandomUtils.nextInt(1, 11) : id) + ".jpg");
 
@@ -107,6 +113,9 @@ public class ProfileUploadRetrieval extends AssignmentEndpoint {
           .body(
               StringUtils.arrayToCommaDelimitedString(catPicture.getParentFile().listFiles())
                   .getBytes());
+    } catch (IllegalArgumentException e) {
+      log.error("Invalid file path", e);
+      return ResponseEntity.badRequest().build();
     } catch (IOException | URISyntaxException e) {
       log.error("Image not found", e);
     }
