@@ -81,4 +81,53 @@ public class ProfileUploadRetrievalTest extends LessonTest {
         .andExpect(status().is(404))
         .andExpect(content().string(containsString("cats" + File.separator + "8.jpg")));
   }
+
+  @Test
+  public void shouldRejectUnixPathTraversalPattern() throws Exception {
+    // Test that "../" pattern is rejected
+    mockMvc
+        .perform(get("/PathTraversal/random-picture?id=../secret"))
+        .andExpect(status().is(400));
+  }
+
+  @Test
+  public void shouldRejectWindowsPathTraversalPattern() throws Exception {
+    // Test that "..\\" pattern is rejected
+    mockMvc
+        .perform(get("/PathTraversal/random-picture?id=..\\secret"))
+        .andExpect(status().is(400));
+  }
+
+  @Test
+  public void shouldRejectMultipleUnixPathTraversalPatterns() throws Exception {
+    // Test that multiple "../" patterns are rejected
+    mockMvc
+        .perform(get("/PathTraversal/random-picture?id=../../secret"))
+        .andExpect(status().is(400));
+  }
+
+  @Test
+  public void shouldRejectPathTraversalInMiddleOfPath() throws Exception {
+    // Test that "../" pattern is rejected even when not at the start
+    mockMvc
+        .perform(get("/PathTraversal/random-picture?id=folder/../secret"))
+        .andExpect(status().is(400));
+  }
+
+  @Test
+  public void shouldAllowValidFilename() throws Exception {
+    // Test that valid filenames without traversal patterns are allowed
+    mockMvc
+        .perform(get("/PathTraversal/random-picture?id=validfile"))
+        .andExpect(status().is(404)); // 404 because file doesn't exist, but not rejected by validation
+  }
+
+  @Test
+  public void shouldAllowNumericId() throws Exception {
+    // Test that numeric IDs (like "1", "2", etc.) are allowed
+    mockMvc
+        .perform(get("/PathTraversal/random-picture?id=1"))
+        .andExpect(status().is(200))
+        .andExpect(content().contentTypeCompatibleWith(MediaType.IMAGE_JPEG));
+  }
 }
