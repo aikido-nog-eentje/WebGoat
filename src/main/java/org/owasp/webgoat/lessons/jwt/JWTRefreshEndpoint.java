@@ -58,9 +58,10 @@ import org.springframework.web.bind.annotation.RestController;
 })
 public class JWTRefreshEndpoint extends AssignmentEndpoint {
 
-  public static final String PASSWORD = "bm5nhSkxCXZkKRy4";
-  private static final String JWT_PASSWORD = "bm5n3SkxCX4kKRy4";
-  private static final List<String> validRefreshTokens = new ArrayList<>();
+  public static final String PASSWORD = "****KRy4";
+  private static final String JWT_PASSWORD = "****KRy4";
+  // Map refresh tokens to the user they were issued for
+  private static final Map<String, String> validRefreshTokens = new HashMap<>();
 
   @PostMapping(
       value = "/JWT/refresh/login",
@@ -90,7 +91,8 @@ public class JWTRefreshEndpoint extends AssignmentEndpoint {
             .compact();
     Map<String, Object> tokenJson = new HashMap<>();
     String refreshToken = RandomStringUtils.randomAlphabetic(20);
-    validRefreshTokens.add(refreshToken);
+    // Bind the refresh token to the user it was issued for
+    validRefreshTokens.put(refreshToken, user);
     tokenJson.put("access_token", token);
     tokenJson.put("refresh_token", refreshToken);
     return tokenJson;
@@ -144,7 +146,13 @@ public class JWTRefreshEndpoint extends AssignmentEndpoint {
 
     if (user == null || refreshToken == null) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-    } else if (validRefreshTokens.contains(refreshToken)) {
+    } else if (validRefreshTokens.containsKey(refreshToken)) {
+      // Verify that the refresh token belongs to the user in the JWT
+      String tokenOwner = validRefreshTokens.get(refreshToken);
+      if (!user.equals(tokenOwner)) {
+        // Refresh token does not belong to this user - potential attack
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+      }
       validRefreshTokens.remove(refreshToken);
       return ok(createNewTokens(user));
     } else {
