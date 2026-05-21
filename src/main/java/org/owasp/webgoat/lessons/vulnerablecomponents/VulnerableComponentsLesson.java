@@ -23,6 +23,9 @@
 package org.owasp.webgoat.lessons.vulnerablecomponents;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.security.NoTypePermission;
+import com.thoughtworks.xstream.security.NullPermission;
+import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 import org.apache.commons.lang3.StringUtils;
 import org.owasp.webgoat.container.assignments.AssignmentEndpoint;
 import org.owasp.webgoat.container.assignments.AssignmentHints;
@@ -39,6 +42,23 @@ public class VulnerableComponentsLesson extends AssignmentEndpoint {
   @PostMapping("/VulnerableComponents/attack1")
   public @ResponseBody AttackResult completed(@RequestParam String payload) {
     XStream xstream = new XStream();
+    
+    // Configure XStream with security restrictions to prevent arbitrary deserialization
+    // Clear all permissions first (deny all)
+    xstream.addPermission(NoTypePermission.NONE);
+    
+    // Allow null values
+    xstream.addPermission(NullPermission.NULL);
+    
+    // Allow primitive types and their wrappers
+    xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
+    
+    // Explicitly allow only the specific types needed for this lesson
+    xstream.allowTypes(new Class[] {ContactImpl.class, Contact.class});
+    
+    // Allow String and Integer types which are used in Contact
+    xstream.allowTypes(new Class[] {String.class, Integer.class});
+    
     xstream.setClassLoader(Contact.class.getClassLoader());
     xstream.alias("contact", ContactImpl.class);
     xstream.ignoreUnknownElements();
