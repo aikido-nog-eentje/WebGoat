@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.1.0</version>
+    <version>3.5.14</version>
   </parent>
 
   <groupId>org.owasp.webgoat</groupId>
@@ -111,22 +111,26 @@
     <!-- Shared properties with plugins and version numbers across submodules-->
     <asciidoctorj.version>2.5.10</asciidoctorj.version>
     <!-- Upgrading needs UI work in WebWolf -->
-    <bootstrap.version>3.3.7</bootstrap.version>
+    <bootstrap.version>3.4.1</bootstrap.version>
     <cglib.version>3.3.0</cglib.version>
     <!-- do not update necessary for lesson -->
     <checkstyle.version>3.3.0</checkstyle.version>
     <commons-collections.version>3.2.1</commons-collections.version>
-    <commons-io.version>2.11.0</commons-io.version>
-    <commons-lang3.version>3.12.0</commons-lang3.version>
+    <commons-io.version>2.14.0</commons-io.version>
+    <commons-lang3.version>3.18.0</commons-lang3.version>
     <commons-text.version>1.10.0</commons-text.version>
-    <guava.version>31.1-jre</guava.version>
+    <guava.version>31.1-jre.tuxcare.1</guava.version>
     <jacoco.version>0.8.10</jacoco.version>
     <java.version>17</java.version>
     <jaxb.version>2.3.1</jaxb.version>
     <jjwt.version>0.9.1</jjwt.version>
-    <jose4j.version>0.9.3</jose4j.version>
+    <jose4j.version>0.9.6</jose4j.version>
     <jquery.version>3.5.1</jquery.version>
-    <jsoup.version>1.16.1</jsoup.version>
+    <jsoup.version>1.23.1</jsoup.version>
+    <!-- Override versions not covered by spring-boot-starter-parent 3.5.14 -->
+    <jackson-bom.version>2.21.5</jackson-bom.version>
+    <log4j2.version>2.25.5</log4j2.version>
+    <logback.version>1.5.34</logback.version>
     <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
     <maven-failsafe-plugin.version>2.22.0</maven-failsafe-plugin.version>
     <maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>
@@ -135,17 +139,20 @@
     <maven-surefire-plugin.version>3.1.0</maven-surefire-plugin.version>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
+    <micrometer.version>1.15.12</micrometer.version>
     <pmd.version>3.15.0</pmd.version>
     <!-- Use UTF-8 Encoding -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <thymeleaf.version>3.1.1.RELEASE</thymeleaf.version>
+    <spring-data-bom.version>2025.0.12</spring-data-bom.version>
+    <spring-framework.version>6.2.19</spring-framework.version>
+    <spring-security.version>6.5.11</spring-security.version>
     <webdriver.version>5.3.2</webdriver.version>
     <webgoat.port>8080</webgoat.port>
     <webwolf.port>9090</webwolf.port>
     <wiremock.version>2.27.2</wiremock.version>
     <xml-resolver.version>1.2</xml-resolver.version>
-    <xstream.version>1.4.5</xstream.version>
+    <xstream.version>1.4.21</xstream.version>
     <!-- do not update necessary for lesson -->
     <zxcvbn.version>1.7.0</zxcvbn.version>
   </properties>
@@ -248,7 +255,12 @@
       <dependency>
         <groupId>org.jruby</groupId>
         <artifactId>jruby</artifactId>
-        <version>9.4.2.0</version>
+        <version>9.4.12.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>1.33-aikido.3</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -419,6 +431,13 @@
       </snapshots>
       <id>central</id>
       <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>aikido-maven</id>
+      <url>https://maven.aikido.io/b6b7219dae019f5710c</url>
     </repository>
   </repositories>
   <pluginRepositories>
